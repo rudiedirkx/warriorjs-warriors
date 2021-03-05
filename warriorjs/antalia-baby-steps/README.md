@@ -2,22 +2,23 @@
 
 ### _For players new to WarriorJS_
 
-## Level 4
+## Level 5
 
-_You can hear bow strings being stretched._
+_You hear cries for help. Captives must need rescuing._
 
-> **TIP:** No new abilities this time, but you must be careful not to rest while taking damage. Save a `this.health` variable and compare it on each turn to see if you're taking damage.
+> **TIP:** Combine `warrior.feel().getUnit().isEnemy()` and `warrior.feel().getUnit().isBound()` to see if there's a captive, and `warrior.rescue()` to rescue him. Don't attack captives.
 
 ### Floor Map
 
 ```
 ╔═══════╗
-║@ Sa S>║
+║@ CaaSC║
 ╚═══════╝
 
 @ = Antalia (20 HP)
-S = Thick Sludge (24 HP)
+C = Captive (1 HP)
 a = Archer (7 HP)
+S = Thick Sludge (24 HP)
 > = stairs
 ```
 
@@ -28,6 +29,7 @@ a = Archer (7 HP)
 - `warrior.walk()`: Moves one space in the given direction (`'forward'` by default).
 - `warrior.attack()`: Attacks a unit in the given direction (`'forward'` by default), dealing 5 HP of damage.
 - `warrior.rest()`: Gains 10% of max health back, but does nothing more.
+- `warrior.rescue()`: Releases a unit from his chains in the given direction (`'forward'` by default).
 
 ### Senses
 
