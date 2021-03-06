@@ -5,18 +5,22 @@ class Player {
 		const healthLost = this.healthLost(warrior);
 		const feeling = warrior.feel();
 		this.killedEnemy = this.prevMove == 'attack' && feeling.isEmpty();
-this.killedEnemy && warrior.think('killed enemy');
+this.killedEnemy && this.log('killed enemy');
 		this.killedEnemy && (this.facingEnemy = null);
+		const isCaptive = !feeling.isEmpty() && !feeling.getUnit().isEnemy() && feeling.getUnit().isBound();
 		const isArcher = this.facingEnemy == 'archer' || this.isArcher(healthLost, feeling);
-warrior.think(isArcher ? 'is archer' : 'is not archer');
-this.facingEnemy && warrior.think('facing ' + this.facingEnemy);
+this.log(isArcher ? 'is archer' : 'is not archer');
+this.facingEnemy && this.log('facing ' + this.facingEnemy);
 
-		if (healthLost > 0 && !isArcher) {
+		if (isCaptive) {
+			warrior.rescue();
+		}
+		else if (healthLost > 0 && !isArcher) {
 			this.prevMove = 'backward';
 			warrior.walk('backward');
 		}
 		else if (feeling.isEmpty()) {
-			if (warrior.health() < warrior.maxHealth()) {
+			if (!isArcher && warrior.health() < warrior.maxHealth()) {
 				this.prevMove = 'rest';
 				warrior.rest();
 			}
