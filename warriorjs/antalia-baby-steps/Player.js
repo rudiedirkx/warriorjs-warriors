@@ -10,6 +10,7 @@ this.killedEnemy && this.log('killed enemy');
 		const isCaptive = !feeling.isEmpty() && !feeling.getUnit().isEnemy() && feeling.getUnit().isBound();
 		const isArcher = this.facingEnemy == 'archer' || this.isArcher(healthLost, feeling);
 this.log(isArcher ? 'is archer' : 'is not archer');
+		const isStairs = feeling.isStairs();
 this.facingEnemy && this.log('facing ' + this.facingEnemy);
 
 		if (isCaptive) {
@@ -20,7 +21,7 @@ this.facingEnemy && this.log('facing ' + this.facingEnemy);
 			warrior.walk('backward');
 		}
 		else if (feeling.isEmpty()) {
-			if (!isArcher && warrior.health() < warrior.maxHealth()) {
+			if (!isArcher && !isStairs && warrior.health() < warrior.maxHealth()) {
 				this.prevMove = 'rest';
 				warrior.rest();
 			}
